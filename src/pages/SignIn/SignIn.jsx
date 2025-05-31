@@ -1,25 +1,27 @@
 import React, { use } from 'react';
+import { Link } from 'react-router';
 import { AuthContext } from '../../AuthContext/AuthContext';
 import SocialLogIn from '../../components/SocialLogIn/SocialLogIn';
 
-const Ragister = () => {
-
-    const { createUser } = use(AuthContext)
-
-    const handelReg = e => {
+const SignIn = () => {
+    const { signin } = use(AuthContext)
+    const handelSignIn = (e) => {
         e.preventDefault();
+
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
 
         console.log(email, password)
-        createUser(email, password)
+
+        signin(email, password)
             .then((result) => {
                 console.log(result)
             })
-            .catch((error) => console.log(error))
+            .catch((error) => {
+                console.log(error)
+            })
     }
-
 
 
     return (
@@ -31,17 +33,19 @@ const Ragister = () => {
                     </div>
                     <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
                         <div className="card-body">
-                            <h3 className='text-xl font-bold'>Registration</h3>
-                            <form onSubmit={handelReg}>
+                            <h3 className='text-xl font-bold'>Sign In</h3>
+                            <form onSubmit={handelSignIn}>
                                 <fieldset className="fieldset">
                                     <label className="label">Email</label>
                                     <input name='email' type="email" className="input" placeholder="Email" />
                                     <label className="label">Password</label>
                                     <input name='password' type="password" className="input" placeholder="Password" />
-                                    <button type='submit' className="btn btn-neutral mt-4">Registration</button>
+                                    <p>Forget password?</p>
+                                    <button type='submit' className="btn btn-neutral mt-4">Sign In</button>
                                 </fieldset>
                             </form>
                             <SocialLogIn></SocialLogIn>
+                            <p><Link to='/register'>Don't have an account? Register</Link></p>
                         </div>
                     </div>
                 </div>
@@ -50,4 +54,4 @@ const Ragister = () => {
     );
 };
 
-export default Ragister;
+export default SignIn;

@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { use } from 'react';
 import { NavLink } from 'react-router';
+import { AuthContext } from '../../AuthContext/AuthContext';
 
 const Mavbar = () => {
+
+    const { user } = use(AuthContext)
 
     const links = <>
         <li><NavLink to='/'>Home</NavLink></li>
@@ -29,7 +32,9 @@ const Mavbar = () => {
                         {links}
                     </ul>
                 </div>
-                <div className="navbar-end">
+                <div className="navbar-end gap-2">
+                    <p>{user?.email}</p>
+                    <NavLink to='/signin'>Sign In</NavLink>
                     <NavLink to='/register' className='btn'>Register</NavLink>
                 </div>
             </div>
