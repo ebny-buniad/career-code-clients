@@ -4,12 +4,17 @@ import { AuthContext } from '../../AuthContext/AuthContext';
 
 const Mavbar = () => {
 
-    const { user } = use(AuthContext)
+    const { user, signOutUser } = use(AuthContext)
 
     const links = <>
         <li><NavLink to='/'>Home</NavLink></li>
-
     </>
+
+    const handelSignOut = () => {
+        signOutUser()
+            .then(() => { })
+            .catch(() => { })
+    }
 
     return (
         <div>
@@ -34,8 +39,14 @@ const Mavbar = () => {
                 </div>
                 <div className="navbar-end gap-2">
                     <p>{user?.email}</p>
-                    <NavLink to='/signin'>Sign In</NavLink>
-                    <NavLink to='/register' className='btn'>Register</NavLink>
+                    {
+                        user ? <>
+                            <NavLink onClick={handelSignOut} to='/register' className='btn'>Sign Out</NavLink>
+                        </> : <>
+                            <NavLink to='/signin'>Sign In</NavLink>
+                            <NavLink to='/register' className='btn'>Register</NavLink>
+                        </>
+                    }
                 </div>
             </div>
         </div>
