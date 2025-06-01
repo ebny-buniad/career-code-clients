@@ -1,12 +1,21 @@
 import React, { use } from 'react';
 import { AuthContext } from '../../AuthContext/AuthContext';
+import { Navigate, useNavigate } from 'react-router';
 
-const SocialLogIn = () => {
+const SocialLogIn = ({ l_State }) => {
 
     const { googleSignIn } = use(AuthContext)
+    const navigate = useNavigate();
 
     const handelGoogleLogin = () => {
         googleSignIn()
+            .then(() => {
+               navigate(l_State || '/')
+            })
+            .catch(() => {
+
+            })
+
     }
 
     return (

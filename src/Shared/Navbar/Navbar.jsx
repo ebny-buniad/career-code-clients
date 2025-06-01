@@ -8,6 +8,10 @@ const Mavbar = () => {
 
     const links = <>
         <li><NavLink to='/'>Home</NavLink></li>
+
+        {
+            user && <li><NavLink to='my-applications'>My Applications</NavLink></li>
+        }
     </>
 
     const handelSignOut = () => {

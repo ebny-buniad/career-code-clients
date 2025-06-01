@@ -1,9 +1,16 @@
 import React, { use } from 'react';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../../AuthContext/AuthContext';
 import SocialLogIn from '../../components/SocialLogIn/SocialLogIn';
 
+
+
 const SignIn = () => {
+
+    const location = useLocation();
+    const l_State = location.state;
+    const navigate = useNavigate()
+
     const { signin } = use(AuthContext)
     const handelSignIn = (e) => {
         e.preventDefault();
@@ -15,11 +22,10 @@ const SignIn = () => {
         console.log(email, password)
 
         signin(email, password)
-            .then((result) => {
-                console.log(result)
+            .then(() => {
+                navigate(l_State || '/')
             })
-            .catch((error) => {
-                console.log(error)
+            .catch(() => {
             })
     }
 
@@ -44,7 +50,7 @@ const SignIn = () => {
                                     <button type='submit' className="btn btn-neutral mt-4">Sign In</button>
                                 </fieldset>
                             </form>
-                            <SocialLogIn></SocialLogIn>
+                            <SocialLogIn l_State={l_State}></SocialLogIn>
                             <p><Link to='/register'>Don't have an account? Register</Link></p>
                         </div>
                     </div>
